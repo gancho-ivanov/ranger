@@ -15,11 +15,13 @@
 
 
 sudo: false
-dist: focal
+dist: bionic
 language: java
+
 cache:
   directories:
   - $HOME/.m2
+
 jdk:
   - openjdk8
   - openjdk11
@@ -27,6 +29,7 @@ jdk:
   
 env:
   - KEY=default VALUE=default
+  
 # Environment to testing with different versions, disabled because ranger is not compatible
 #  - KEY=hadoop.version VALUE=2.8.0
 
@@ -35,7 +38,7 @@ before_install:
 
 install:
   - false
-  - mvn package -D$KEY=$VALUE -DskipTests -Dmaven.javadoc.skip=true -B -V
+  - mvn verify -D$KEY=$VALUE -DskipTests -Dmaven.javadoc.skip=true -B -V
 
 # KafkaRangerAuthorizerGSSTest is a failing test, TestLdapUserGroup needs too much memory for travis
 script:
